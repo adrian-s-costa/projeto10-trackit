@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export default function Input(props){
-    console.log(props)
     const {type, placeholder, value, set} = props
     return(
         <>
@@ -29,7 +28,7 @@ const LoginForms = styled.form`
         height: 45px;
         margin-top: 6px;
         font-family: 'Lexend Deca';
-        color: #D5D5D5;
+        color: #666666;
         font-style: normal;
         font-weight: 400;
         font-size: 19.976px;

@@ -5,7 +5,7 @@ export default function Button(props){
     return(
         <>
             <ButtonStyle>
-                <button type='submit'>{props.children}</button>
+                <button type='submit' onClick={props.clickFunc}>{props.children}</button>
             </ButtonStyle>
         </>
     )

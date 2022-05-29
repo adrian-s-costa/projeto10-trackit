@@ -1,19 +1,32 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
 import Input from './Input';
 import Button from './Button';
 import Logo from './Logo';
+import axios from 'axios';
+import UserContext from '../contexts/UserContext'
 
 
-export default function Login(){
+function Login(){
     
-    const [loginData, setLoginData] = useState({email: '', password: ''})
+    const navigate = useNavigate()
+    const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
 
     function setarDados(event){
         event.preventDefault();
         console.log(loginData)
+        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', loginData)
+        promise.then(response => {
+            setUserData(response.data)
+            console.log(userData)
+            navigate('/hoje')
+        })
+        promise.catch(response=>{
+            alert('login ou senha incorretos')
+        })
     }
+
 
     return(
         <>
@@ -54,3 +67,4 @@ const LinkCadastro = styled.div`
     }
 
 `
+export default Login
