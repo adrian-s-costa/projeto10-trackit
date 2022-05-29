@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export default function Input(props){
-    const {type, placeholder, value, set} = props
+    const {type, placeholder, value, set, disabled} = props
     return(
         <>
             <LoginForms>
-                <input type={type} placeholder={placeholder} onChange={set} value={value} required/>          
+                <input type={type} placeholder={placeholder} onChange={set} value={value} required disabled={disabled}/>          
             </LoginForms>
         </>
         
@@ -21,7 +21,7 @@ const LoginForms = styled.form`
     
 
     input{
-        background: #FFFFFF;
+        background: #ffffff;
         border: 1px solid #D5D5D5;
         border-radius: 5px;
         width: 303px;
@@ -33,6 +33,10 @@ const LoginForms = styled.form`
         font-weight: 400;
         font-size: 19.976px;
         line-height: 25px;
+    }
+
+    input:disabled{
+        background: #ccc;
     }
 
 

@@ -5,17 +5,17 @@ export default function ProgressBar(){
     return(
         <FooterBar>
             <div>
-                <Link to={`/habitos`}>
+                <Link to={`/habitos`} style={{ textDecoration: 'none' }}>
                     <h5>Hábitos</h5>
                 </Link>
             </div>
             <div>
-                <Link to={`/hoje`}>
+                <Link to={`/hoje`} style={{ textDecoration: 'none' }}>
                     <Circle>Hoje</Circle>
                 </Link>
             </div>
             <div>
-                <Link to={`/historico`}>
+                <Link to={`/historico`} style={{ textDecoration: 'none' }}>
                     <h5>Histórico</h5>
                 </Link>
             </div>

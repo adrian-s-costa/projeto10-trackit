@@ -8,10 +8,6 @@ export default function Habits(){
 
     const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
 
-
-    console.log()
-
-
     return(
         <>
             <TopBar/>

@@ -8,7 +8,6 @@ import Habits from './Habits'
 import Today from './Today'
 import History from './History';
 
-
 export default function App(){
 
     const [loginData, setLoginData] = useState({email: '', password: ''})

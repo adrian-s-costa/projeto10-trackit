@@ -7,14 +7,12 @@ export default function TopBar(){
     const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
 
 
-    console.log()
-
 
     return(
         <>
             <TopBarDiv>
                 <h1>TrackIt</h1>
-                <img src={userData.image}></img>
+                <img src={userData.image} alt={'profile'}></img>
             </TopBarDiv>
         </>
     )

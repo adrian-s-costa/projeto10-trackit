@@ -6,41 +6,64 @@ import Button from './Button';
 import Logo from './Logo';
 import axios from 'axios';
 import UserContext from '../contexts/UserContext'
+import Loading from './Loading';
 
 
 function Login(){
     
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
 
     function setarDados(event){
-        event.preventDefault();
+        event.preventDefault()
         console.log(loginData)
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', loginData)
+        
         promise.then(response => {
+            setLoading(false)
             setUserData(response.data)
             console.log(userData)
             navigate('/hoje')
         })
         promise.catch(response=>{
-            alert('login ou senha incorretos')
+            setLoading(false)
+            alert('login ou senha incorretos, tente novamente')
         })
     }
 
+    function toBuildForm(){
+        if (loading) {
+            return <form onSubmit={setarDados}>
+            <Input type={'text'} placeholder={'email'} set={(e) => setLoginData({ ...loginData, email: e.target.value})} value={loginData.email} disabled={true}/>
+            <Input type={'password'} placeholder={'senha'} set={(e) => setLoginData({ ...loginData, password: e.target.value})} value={loginData.password} disabled={true}/>
+            <Button disabled={true}><Loading/></Button>
+            <Link to={`/cadastro`}>
+                <LinkCadastro>
+                    <span>Já tem uma conta? Faça login</span>
+                </LinkCadastro>
+            </Link>
+        </form>
+        }else{
+            return <form onSubmit={setarDados}>
+            <Input type={'text'} placeholder={'email'} set={(e) => setLoginData({ ...loginData, email: e.target.value})} value={loginData.email} disabled={false}/>
+            <Input type={'password'} placeholder={'senha'} set={(e) => setLoginData({ ...loginData, password: e.target.value})} value={loginData.password} disabled={false}/>
+            <Button clickFunc={()=>setLoading(true)}>Entrar</Button>
+            <Link to={`/cadastro`}>
+                <LinkCadastro>
+                    <span>Já tem uma conta? Faça login</span>
+                </LinkCadastro>
+            </Link>
+        </form>
+        }
+    }
+
+    const builtForm = toBuildForm()
 
     return(
         <>
             <Logo/>
-            <form onSubmit={setarDados}>
-                <Input type={'text'} placeholder={'email'} set={(e) => setLoginData({ ...loginData, email: e.target.value})} value={loginData.email}/>
-                <Input type={'password'} placeholder={'senha'} set={(e) => setLoginData({ ...loginData, password: e.target.value})} value={loginData.password}/>
-                <Button>Entrar</Button>
-                <Link to={`/cadastro`}>
-                    <LinkCadastro>
-                        <span>Já tem uma conta? Faça login</span>
-                    </LinkCadastro>
-                </Link>
-            </form>
+            {builtForm}
             
         </>
     )
@@ -52,7 +75,6 @@ const LinkCadastro = styled.div`
     justify-content: center;
     
     span{
-        
         font-family: 'Lexend Deca';
         font-style: normal;
         margin-top: 25px;
@@ -67,4 +89,6 @@ const LinkCadastro = styled.div`
     }
 
 `
+
+
 export default Login

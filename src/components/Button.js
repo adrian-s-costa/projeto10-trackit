@@ -5,7 +5,7 @@ export default function Button(props){
     return(
         <>
             <ButtonStyle>
-                <button type='submit' onClick={props.clickFunc}>{props.children}</button>
+                <button type='submit' onClick={props.clickFunc} disabled={props.disabled}>{props.children}</button>
             </ButtonStyle>
         </>
     )
@@ -33,5 +33,9 @@ const ButtonStyle = styled.div`
         background-color: #FFFFFF;
         color: #52B6FF;
         border: solid 1px #52B6FF;
+    }
+
+    button:disabled{
+        background: #ccc;
     }
 `
