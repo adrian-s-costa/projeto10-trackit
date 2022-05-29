@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
 import UserContext from '../contexts/UserContext'
+import TopBar from './TopBar';
+import ProgressBar from './ProgressBar';
 
 export default function Today(){
 
@@ -12,36 +14,43 @@ export default function Today(){
 
     return(
         <>
-            <TopBar>
-                <h1>TrackIt</h1>
-                <img src={userData.image}></img>
-            </TopBar>
-
+            <TopBar/>
+            <HabitosDiv>
+                <h2>Meus hábitos</h2>
+                <button>+</button>
+            </HabitosDiv>
+            <ProgressBar/>
         </>
     )
 }
 
 
-
-
-const TopBar = styled.div`
-    height: 70px;
-    background: #126BA5;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+const HabitosDiv = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0px 18px;
+    padding: 0px 17px;
+    margin-top: 30px;
 
-    h1{
-        font-family: 'Playball';
-        font-size: 38.982px;
+    h2{
+        font-family: 'Lexend Deca';
+        font-size: 22.976px;
+        color: #126BA5;
+    }
+
+    button{
+        width: 40px;
+        height: 35px;
+        font-family: 'Lexend Deca';
+        font-size: 26.976px;
         color: #FFFFFF;
+        background-color: #52B6FF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 4.63636px;
     }
 
-    img{
-        width: 51px;
-        height: 51px;
-        border-radius: 98.5px;
-    }
+
 `

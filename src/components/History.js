@@ -4,26 +4,23 @@ import UserContext from '../contexts/UserContext'
 import TopBar from './TopBar';
 import ProgressBar from './ProgressBar';
 
-export default function Habits(){
-
+export default function History(){
+    
     const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
 
-
-    console.log()
-
-
     return(
+    
         <>
             <TopBar/>
             <HabitosTitle>
-                <h2>Meus hábitos</h2>
-                <button>+</button>
+                <h2>Histórico</h2>
             </HabitosTitle>
             <HabitosDiv>
-                <h4>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h4>
+                <h4>Em breve você poderá ver o histórico dos seus hábitos aqui!</h4>
             </HabitosDiv>
             <ProgressBar/>
         </>
+
     )
 }
 
@@ -38,20 +35,6 @@ const HabitosTitle = styled.div`
         font-family: 'Lexend Deca';
         font-size: 22.976px;
         color: #126BA5;
-    }
-
-    button{
-        width: 40px;
-        height: 35px;
-        font-family: 'Lexend Deca';
-        font-size: 26.976px;
-        color: #FFFFFF;
-        background-color: #52B6FF;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        border-radius: 4.63636px;
     }
 
 
