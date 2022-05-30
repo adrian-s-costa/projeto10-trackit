@@ -32,39 +32,20 @@ function Login(){
         })
     }
 
-    function toBuildForm(){
-        if (loading) {
-            return <form onSubmit={setarDados}>
-            <Input type={'text'} placeholder={'email'} set={(e) => setLoginData({ ...loginData, email: e.target.value})} value={loginData.email} disabled={true}/>
-            <Input type={'password'} placeholder={'senha'} set={(e) => setLoginData({ ...loginData, password: e.target.value})} value={loginData.password} disabled={true}/>
-            <Button disabled={true}><Loading/></Button>
-            <Link to={`/cadastro`}>
-                <LinkCadastro>
-                    <span>Já tem uma conta? Faça login</span>
-                </LinkCadastro>
-            </Link>
-        </form>
-        }else{
-            return <form onSubmit={setarDados}>
-            <Input type={'text'} placeholder={'email'} set={(e) => setLoginData({ ...loginData, email: e.target.value})} value={loginData.email} disabled={false}/>
-            <Input type={'password'} placeholder={'senha'} set={(e) => setLoginData({ ...loginData, password: e.target.value})} value={loginData.password} disabled={false}/>
-            <Button clickFunc={()=>setLoading(true)}>Entrar</Button>
-            <Link to={`/cadastro`}>
-                <LinkCadastro>
-                    <span>Já tem uma conta? Faça login</span>
-                </LinkCadastro>
-            </Link>
-        </form>
-        }
-    }
-
-    const builtForm = toBuildForm()
 
     return(
         <>
             <Logo/>
-            {builtForm}
-            
+            <form onSubmit={setarDados}>
+                <Input type={'text'} placeholder={'email'} set={(e) => setLoginData({ ...loginData, email: e.target.value})} value={loginData.email} disabled={loading?true:false}/>
+                <Input type={'password'} placeholder={'senha'} set={(e) => setLoginData({ ...loginData, password: e.target.value})} value={loginData.password} disabled={loading?true:false}/>
+                <Button disabled={loading?true:false} clickFunc={()=>setLoading(true)} tag={loading?<Loading />:'Entrar'}></Button>
+                <Link to={`/cadastro`}>
+                    <LinkCadastro>
+                        <span>Já tem uma conta? Faça login</span>
+                    </LinkCadastro>
+                </Link>
+            </form>
         </>
     )
     

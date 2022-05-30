@@ -6,9 +6,11 @@ import Button from './Button';
 import Logo from './Logo';
 import axios from 'axios';
 import UserContext from '../contexts/UserContext'
+import Loading from './Loading';
 
 export default function Register(){
 
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [registerData, setRegisterData] = useState({email:'', name:'', image:'', password:''})
     const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
@@ -23,16 +25,19 @@ export default function Register(){
             console.log(loginData)
             const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', loginData)
             promise.then(response=>{
+                setLoading(false)
                 console.log(loginData)
                 setUserData(response.data)
                 navigate('/hoje')
             })
             promise.catch(response=>{
+                setLoading(false)
                 console.log(loginData)
             })
         })
 
         promise.catch(response=>{
+            setLoading(false)
             alert('Algum dado está incorreto, tente novamente')
         })
     }
@@ -41,11 +46,11 @@ export default function Register(){
         <>
             <Logo/>
             <form onSubmit={setarDados}>
-                <Input type={'email'} placeholder={'email'} set={(e) => setRegisterData({ ...registerData, email: e.target.value})} value={registerData.email}/>
-                <Input type={'text'} placeholder={'nome'} set={(e) => setRegisterData({ ...registerData, name: e.target.value})} value={registerData.name}/>
-                <Input type={'text'} placeholder={'foto'} set={(e) => setRegisterData({ ...registerData, image: e.target.value})} value={registerData.image}/>
-                <Input type={'password'} placeholder={'senha'} set={(e) => setRegisterData({ ...registerData, password: e.target.value})} value={registerData.password}/>
-                <Button clickFunc={() => setLoginData({...loginData, email: registerData.email, password: registerData.password})}>Cadastrar</Button>
+                <Input type={'email'} placeholder={'email'} set={(e) => setRegisterData({ ...registerData, email: e.target.value})} value={registerData.email}  disabled={loading?true:false} />
+                <Input type={'text'} placeholder={'nome'} set={(e) => setRegisterData({ ...registerData, name: e.target.value})} value={registerData.name} disabled={loading?true:false} />
+                <Input type={'text'} placeholder={'foto'} set={(e) => setRegisterData({ ...registerData, image: e.target.value})} value={registerData.image} disabled={loading?true:false} />
+                <Input type={'password'} placeholder={'senha'} set={(e) => setRegisterData({ ...registerData, password: e.target.value})} value={registerData.password} disabled={loading?true:false} />
+                <Button clickFunc={() => setLoginData({...loginData, email: registerData.email, password: registerData.password}, setLoading(true))} disabled={loading?true:false} tag={loading?<Loading/>:'Cadastrar'}/>
 
                 <Link to={`/`}>
                     <LinkCadastro>

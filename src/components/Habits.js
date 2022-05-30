@@ -1,23 +1,28 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import UserContext from '../contexts/UserContext'
 import TopBar from './TopBar';
 import ProgressBar from './ProgressBar';
+import HabitToAdd from './HabitToAdd'
+import HabitsList from './HabitsList';
 
 export default function Habits(){
+    
+    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd} = useContext(UserContext)
 
-    const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
-
+    
     return(
         <>
             <TopBar/>
             <HabitosTitle>
                 <h2>Meus hábitos</h2>
-                <button>+</button>
+                <button onClick={()=>setHabitToAdd(true)}>+</button>
             </HabitosTitle>
+            {habitToAdd?<HabitToAdd/> : null}
             <HabitosDiv>
-                <h4>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h4>
+                <HabitsList/>
             </HabitosDiv>
+            
             <ProgressBar/>
         </>
     )
@@ -50,8 +55,15 @@ const HabitosTitle = styled.div`
         border-radius: 4.63636px;
     }
 
+    button:hover{
+        transition: 0.5s;
+        background-color: #FFFFFF;
+        color: #52B6FF;
+        border: 1px solid #52B6FF;
+    }
 
-`
+
+` 
 
 const HabitosDiv = styled.div`
     width: 100%;

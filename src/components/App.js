@@ -7,25 +7,34 @@ import Register from './Register'
 import Habits from './Habits'
 import Today from './Today'
 import History from './History';
+import styled from 'styled-components'
 
 export default function App(){
 
     const [loginData, setLoginData] = useState({email: '', password: ''})
     const [userData, setUserData] = useState({})
-    const contextValue = {loginData, setLoginData, userData, setUserData}
+    const [habitToAdd, setHabitToAdd] = useState(false)
+    const [obj, setObj] = useState({name:'', days: []})
+    const contextValue = {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj}
     
 
     return(
-        <BrowserRouter>
-             <UserContext.Provider value={contextValue}>
-                <Routes>
-                    <Route path="/" element={<Login />}/>
-                    <Route path="/cadastro" element={<Register />}/>
-                    <Route path="/habitos" element={<Habits />}/>
-                    <Route path="/hoje" element={<Today />}/>
-                    <Route path="/historico" element={<History />}/>
-                </Routes>
-            </UserContext.Provider>
-        </BrowserRouter>
+        <AppDiv>
+            <BrowserRouter>
+                <UserContext.Provider value={contextValue}>
+                    <Routes>
+                        <Route path="/" element={<Login />}/>
+                        <Route path="/cadastro" element={<Register />}/>
+                        <Route path="/habitos" element={<Habits />}/>
+                        <Route path="/hoje" element={<Today />}/>
+                        <Route path="/historico" element={<History />}/>
+                    </Routes>
+                </UserContext.Provider>
+            </BrowserRouter>
+        </AppDiv>
     )
 }
+
+const AppDiv = styled.div`
+    padding-bottom: 100px;
+`

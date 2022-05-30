@@ -15,10 +15,7 @@ export default function Today(){
     return(
         <>
             <TopBar/>
-            <HabitosDiv>
-                <h2>Meus hábitos</h2>
-                <button>+</button>
-            </HabitosDiv>
+            
             <ProgressBar/>
         </>
     )
