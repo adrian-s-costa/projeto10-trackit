@@ -10,27 +10,35 @@ import PopUp from './PopUp';
 
 export default function HabitsList(){
 
-    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, deleteH, setDeleteH} = useContext(UserContext)
+    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, deleteH, setDeleteH, loading} = useContext(UserContext)
     const [habitsData, setHabitsData] = useState([])
     const [habId, setHabId] = useState('')
+    const [loadingHabs, setloadingHabs] = useState(false)
 
     const config = {
         headers: {Authorization: `Bearer ${userData.token}`}
     }
 
+    
+    
     useEffect(() => {
+
+        setloadingHabs(true)
+
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
 
         promise.then((response)=>{
             setHabitsData(response.data)
+            setloadingHabs(false)
         })
         promise.catch((response)=>{
             console.log(response.status)
+            setloadingHabs(false)
         })
-    }, [habitsData]);
+    }, [deleteH, loading] );
 
     return <>
-        {habitsData.length === 0 ? <Loading/>:
+        {habitsData.length === 0 ? <LoadingDiv>{loadingHabs?<Loading/>:<h6>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h6>}</LoadingDiv>  :
         <Hlist>
         {habitsData.map((d) => (
             <div className={'habit'}>
@@ -103,6 +111,17 @@ const DaysdDiv = styled.div`
     }
 
 ` 
+const LoadingDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    h6{
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-size: 17.976px;
+        color: #666666;
+    }
+`
 
 
 

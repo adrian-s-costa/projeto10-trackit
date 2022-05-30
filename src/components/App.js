@@ -15,8 +15,9 @@ export default function App(){
     const [userData, setUserData] = useState({})
     const [habitToAdd, setHabitToAdd] = useState(false)
     const [obj, setObj] = useState({name:'', days: []})
+    const [loading, setLoading] = useState(false)
     const [deleteH, setDeleteH] = useState(false)
-    const contextValue = {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, deleteH, setDeleteH}
+    const contextValue = {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, deleteH, setDeleteH, loading, setLoading}
     
 
     return(

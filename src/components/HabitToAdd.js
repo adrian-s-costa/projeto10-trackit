@@ -6,8 +6,7 @@ import axios from 'axios'
 import Loading from './Loading'
 
 export default function HabitToAdd(){
-    const [loading, setLoading] = useState(false)
-    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj} = useContext(UserContext)
+    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, loading, setLoading} = useContext(UserContext)
     const [daysA, setDays] = useState([
         {nameDay:'D', day: 0, selecionado: false},
         {nameDay:'S', day: 1, selecionado: false},
