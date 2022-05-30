@@ -36,6 +36,7 @@ export default function HabitToAdd(){
         promise.then((response)=>{
             setLoading(false)
             console.log(response.data)
+            setHabitToAdd(false)
         })
         promise.catch((promise)=>{
             setLoading(false)

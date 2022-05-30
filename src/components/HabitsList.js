@@ -3,14 +3,16 @@ import { useState, useContext, useEffect } from 'react';
 import UserContext from '../contexts/UserContext'
 import axios from 'axios';
 import Loading from './Loading';
+import Button from './Button';
+import PopUp from './PopUp';
 
 
 
 export default function HabitsList(){
 
-    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj} = useContext(UserContext)
-
+    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, deleteH, setDeleteH} = useContext(UserContext)
     const [habitsData, setHabitsData] = useState([])
+    const [habId, setHabId] = useState('')
 
     const config = {
         headers: {Authorization: `Bearer ${userData.token}`}
@@ -20,15 +22,12 @@ export default function HabitsList(){
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
 
         promise.then((response)=>{
-            console.log(response.data)
             setHabitsData(response.data)
         })
-        promise.catch((promise)=>{
-            console.log('calmo e vamo descobrir o prob')
+        promise.catch((response)=>{
+            console.log(response.status)
         })
     }, [habitsData]);
-
-    
 
     return <>
         {habitsData.length === 0 ? <Loading/>:
@@ -37,7 +36,9 @@ export default function HabitsList(){
             <div className={'habit'}>
                 <div className='title'>
                     <h2>{d.name}</h2>
-                    <ion-icon name="trash-outline"></ion-icon>
+                    <div className = {'trashIcon'} onClick={()=>setDeleteH(true, setHabId(d.id))}>
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </div>
                 </div>
                 <DaysdDiv>
                     <div className={`${d.days.some((d) => d === 0) ? "selected" : ''}`}>D</div>
@@ -50,6 +51,7 @@ export default function HabitsList(){
                 </DaysdDiv>
             </div>
         ))}
+        {deleteH ? <PopUp habId={habId}  /> : null}
         </Hlist>
         }
     </>
@@ -71,6 +73,9 @@ const Hlist = styled.div`
     .habit{
         margin-top: 20px;
     }
+    .trashIcon{
+        cursor: pointer;
+    }
 `
 
 const DaysdDiv = styled.div`
@@ -90,7 +95,6 @@ const DaysdDiv = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
     }
 
     .selected{
@@ -99,3 +103,6 @@ const DaysdDiv = styled.div`
     }
 
 ` 
+
+
+

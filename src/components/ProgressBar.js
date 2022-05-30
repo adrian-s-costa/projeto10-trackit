@@ -39,10 +39,12 @@ export default function ProgressBar(){
 const FooterBar = styled.div`
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-around;
     position: fixed;
     bottom: 0px;
     height: 70px;
+    background-color: #ffffff;
     
     
     h5{

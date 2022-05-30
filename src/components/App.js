@@ -11,11 +11,12 @@ import styled from 'styled-components'
 
 export default function App(){
 
-    const [loginData, setLoginData] = useState({email: '', password: ''})
+    const [loginData, setLoginData] = useState({email: 'ala@email.com', password: '123'})
     const [userData, setUserData] = useState({})
     const [habitToAdd, setHabitToAdd] = useState(false)
     const [obj, setObj] = useState({name:'', days: []})
-    const contextValue = {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj}
+    const [deleteH, setDeleteH] = useState(false)
+    const contextValue = {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, deleteH, setDeleteH}
     
 
     return(
