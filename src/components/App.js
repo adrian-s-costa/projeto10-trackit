@@ -11,7 +11,7 @@ import styled from 'styled-components'
 
 export default function App(){
 
-    const [loginData, setLoginData] = useState({email: 'ala@email.com', password: '123'})
+    const [loginData, setLoginData] = useState({email: '', password: ''})
     const [userData, setUserData] = useState({})
     const [habitToAdd, setHabitToAdd] = useState(false)
     const [obj, setObj] = useState({name:'', days: []})
