@@ -8,7 +8,7 @@ import HabitsList from './HabitsList';
 
 export default function Habits(){
     
-    const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd} = useContext(UserContext)
+    const { habitToAdd, setHabitToAdd } = useContext(UserContext)
 
     
     return(
@@ -22,7 +22,6 @@ export default function Habits(){
             <HabitosDiv>
                 <HabitsList/>
             </HabitosDiv>
-            
             <ProgressBar/>
         </>
     )

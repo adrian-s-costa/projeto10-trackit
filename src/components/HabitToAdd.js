@@ -7,7 +7,7 @@ import Loading from './Loading'
 
 export default function HabitToAdd(){
     const {loginData, setLoginData, userData, setUserData, habitToAdd, setHabitToAdd, obj, setObj, loading, setLoading} = useContext(UserContext)
-    const [daysA, setDays] = useState([
+    const [days, setDays] = useState([
         {nameDay:'D', day: 0, selecionado: false},
         {nameDay:'S', day: 1, selecionado: false},
         {nameDay:'T', day: 2, selecionado: false},
@@ -19,8 +19,8 @@ export default function HabitToAdd(){
     
     function toggleDay(day){
         day.selecionado = !day.selecionado;
-        setDays([...daysA]);
-        const selectedDays = daysA.filter((d)=>d.selecionado)
+        setDays([...days]);
+        const selectedDays = days.filter((d)=>d.selecionado)
         const selectedDaysN = selectedDays.map((d)=>d.day)
         setObj({...obj, days: selectedDaysN})
     }
@@ -50,7 +50,7 @@ export default function HabitToAdd(){
             <HabitsToAdd>   
                 <Input placeholder={'nome do hábito'} set={(e) => setObj({ ...obj, name: e.target.value})} value={obj.name} disabled={loading?true:false}/>
                 <DaysdDiv>
-                    {daysA.map((d) => (
+                    {days.map((d) => (
                         <div 
                         onClick={()=>toggleDay(d)}
                         className={`${d.selecionado ? "selected" : ""}`}

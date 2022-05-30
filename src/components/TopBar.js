@@ -4,7 +4,7 @@ import UserContext from '../contexts/UserContext'
 
 export default function TopBar(){
 
-    const {loginData, setLoginData, userData, setUserData} = useContext(UserContext)
+    const { userData } = useContext(UserContext)
 
 
 

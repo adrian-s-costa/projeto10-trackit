@@ -2,10 +2,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import UserContext from '../contexts/UserContext';
+import { useContext, useEffect } from 'react';
 
 export default function ProgressBar(){
     
-    const percentage = 50
+    const { habsDone, habsNumber } = useContext(UserContext)
+    const perNumber = ((100/habsNumber)*habsDone)
+    const percentage = perNumber
     
     return(
         <FooterBar>
