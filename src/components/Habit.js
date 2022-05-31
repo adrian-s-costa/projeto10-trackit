@@ -5,14 +5,15 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Loading from './Loading';
-
+const a = 1
 export default function Habit(){
     
     const todayDay = dayjs().day()
     const [habitsOfTheDay, sethabitsOfTheDay] = useState([])
     const [day, setDay] = useState('')
     const {loginData, setLoginData, userData, setUserData, habsDone, setHabsDone, habsNumber, setHabsNumber} = useContext(UserContext)
-    
+    const [loadingHabs, setloadingHabs] = useState(false)
+    const [click, setClick] = useState(1)
 
     function toSetDay(day){
         switch (day) {
@@ -45,6 +46,9 @@ export default function Habit(){
     
 
     function check(id, done){
+
+        setClick(click + 1)
+
         const config = {
             headers: {Authorization: `Bearer ${userData.token}`}
         }
@@ -53,26 +57,30 @@ export default function Habit(){
         
         if (done) {
             axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, body, config)
-            .then(response =>  setarHabs())
-            .catch(response => console.log(response.status))
+            .then(response => setloadingHabs(false))
+            .catch(response => console.log(response.status), setloadingHabs(false))
         }else{
             axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, body, config)
-            .then(response =>  setarHabs())
-            .catch(response => console.log(response.status))
+            .then(response => setloadingHabs(false))
+            .catch(response => console.log(response.status), setloadingHabs(false))
         }
 
         console.log(habsDone)
         console.log(habsNumber)
     }
     
-    function setarHabs(){
+    useEffect(() => { 
+        
         const doneHabs = (habitsOfTheDay.filter((h)=> h.done))
         const numberHabs = (habitsOfTheDay.length)
-        setHabsDone(habsDone)
-        setHabsNumber(habsNumber)
-    }
+        setHabsDone(doneHabs.length)
+        setHabsNumber(numberHabs)
+    }, [click])
 
-    useEffect(() => {   
+    useEffect(() => { 
+        setClick(click + 1)
+        setloadingHabs(true)
+
         const config = {
             headers: {Authorization: `Bearer ${userData.token}`}
         }
@@ -85,9 +93,10 @@ export default function Habit(){
     return <>{habitsOfTheDay.length === 0 ? <DayDiv>
         <h2>{day}, {dayjs().date()}/0{dayjs().month()+1}</h2>
         <h4>Nenhum habito concluido ainda</h4>
-        <Loading/>
-        </DayDiv> : <><DayDiv>
+        <div>{loadingHabs?<Loading/>:null}</div>
+        </DayDiv> : <> <DayDiv>
         <h2>{day}, {dayjs().date()}/0{dayjs().month()+1}</h2>
+        <h2 className='concluided'> {((100/habsNumber)*habsDone)} dos hábitos concluídos</h2>
         </DayDiv>
         <HabitsDiv>
             {habitsOfTheDay.map(hab => {
@@ -129,6 +138,13 @@ const DayDiv = styled.div`
         font-size: 17.976px;
         line-height: 22px;
         color: #BABABA;
+    }
+
+    .concluided{
+        margin-top: 4px;
+        font-family: 'Lexend Deca';
+        font-size: 17.976px;
+        color: #8FC549;
     }
 `
 const HabitsDiv = styled.div`
